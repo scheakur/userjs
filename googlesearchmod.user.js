@@ -11,10 +11,20 @@
   var copied = search.cloneNode(true);
 
   var button = copied.querySelector('button');
-  button.style.background = 'none repeat scroll 0% 0% transparent';
-  // set parameter for `Past year`
-  button.name = 'tbs';
-  button.value = 'qdr:y';
+  button.addEventListener('click', function () {
+    if (document.f.q.value !== '') {
+      document.querySelector('.past-year-param').disabled = false;
+    }
+  });
+
+  var pastYear = document.createElement('input');
+  pastYear.classList.add('past-year-param');
+  pastYear.type = 'hidden';
+  pastYear.name = 'tbs';
+  pastYear.value = 'qdr:y';
+  pastYear.disabled = true;
+
+  copied.appendChild(pastYear);
 
   var mark = button.querySelector('.sbico');
   mark.classList.remove('sbico');
