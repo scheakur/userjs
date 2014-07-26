@@ -3,7 +3,7 @@
 // @namespace scheakur.com
 // @include http://reader.livedoor.com/reader/
 // @include http://reader.livedoor.com/public/*
-// @version 0.1.0
+// @version 0.2.0
 // @grant GM_openInTab
 // ==/UserScript==
 
