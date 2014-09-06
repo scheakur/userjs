@@ -32,6 +32,6 @@
   mark.style.color = 'white';
   mark.appendChild(document.createTextNode('1Y'));
 
-  search.parentNode.appendChild(copied);
+  search.parentNode.insertBefore(copied, search.nextElementSibling);
 }());
 
