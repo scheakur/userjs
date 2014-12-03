@@ -3,6 +3,7 @@
 // @namespace scheakur.com
 // @include https://www.google.com/search*
 // @include https://www.google.co.jp/search*
+// @noframes
 // @version 0.1.0
 // ==/UserScript==
 
