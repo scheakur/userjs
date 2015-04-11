@@ -8,12 +8,12 @@
 // @grant GM_openInTab
 // ==/UserScript==
 
-(function (w) {
+(function(w) {
   function ldrmod(w) {
     function prefetch() {
       var num = 10;
       w.get_unread.cache.max = 1000;
-      w.Ordered.list.forEach(function (id) {
+      w.Ordered.list.forEach((id) => {
         if (num > 0 && !w.get_unread.cache.has(id) && w.subs_item(id).unread_count) {
           num--;
           w.prefetch(id);
@@ -29,15 +29,15 @@
       GM_openInTab(item.link);
     }
 
-    w.addEventListener('load', function () {
+    w.addEventListener('load', () => {
       w.Keybind.add('m', prefetch);
       w.Keybind.add('v', openInTab);
     });
   }
 
   function contentEval(fn) {
-    var source = ';(' + fn + ')(this);';
-    var script = document.createElement('script');
+    let source = ';(' + fn + ')(this);';
+    let script = document.createElement('script');
     script.setAttribute('type', 'application/javascript');
     script.textContent = source;
 
@@ -45,8 +45,8 @@
     document.body.removeChild(script);
   }
 
-  exportFunction(function (url) {
-    setTimeout(function () {
+  exportFunction((url) => {
+    setTimeout(() => {
       GM_openInTab(url);
     }, 0);
   }, w, {defineAs: 'GM_openInTab'});

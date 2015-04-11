@@ -7,18 +7,18 @@
 // @version 0.1.0
 // ==/UserScript==
 
-(function () {
-  var search = document.querySelector('.nojsb').parentNode;
-  var copied = search.cloneNode(true);
+(function() {
+  let search = document.querySelector('.nojsb').parentNode;
+  let copied = search.cloneNode(true);
 
-  var button = copied.querySelector('button');
-  button.addEventListener('click', function () {
+  let button = copied.querySelector('button');
+  button.addEventListener('click', () => {
     if (document.f.q.value !== '') {
       document.querySelector('.past-year-param').disabled = false;
     }
   });
 
-  var pastYear = document.createElement('input');
+  let pastYear = document.createElement('input');
   pastYear.classList.add('past-year-param');
   pastYear.type = 'hidden';
   pastYear.name = 'tbs';
@@ -27,7 +27,7 @@
 
   copied.appendChild(pastYear);
 
-  var mark = button.querySelector('.sbico');
+  let mark = button.querySelector('.sbico');
   mark.classList.remove('sbico');
   mark.style.fontSize = 'medium';
   mark.style.color = 'white';
