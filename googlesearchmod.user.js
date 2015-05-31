@@ -4,35 +4,112 @@
 // @include https://www.google.com/search*
 // @include https://www.google.co.jp/search*
 // @noframes
-// @version 0.1.0
+// @version 0.2.0
 // ==/UserScript==
 
 (function() {
-  let search = document.querySelector('.nojsb').parentNode;
-  let copied = search.cloneNode(true);
+  function newContainer() {
+    let div = document.createElement('div');
+    div.style.position = 'fixed';
+    div.style.top = '180px';
+    div.style.left = '20px';
+    return div;
+  }
 
-  let button = copied.querySelector('button');
-  button.addEventListener('click', () => {
-    if (document.f.q.value !== '') {
-      document.querySelector('.past-year-param').disabled = false;
-    }
-  });
 
-  let pastYear = document.createElement('input');
-  pastYear.classList.add('past-year-param');
-  pastYear.type = 'hidden';
-  pastYear.name = 'tbs';
-  pastYear.value = 'qdr:y';
-  pastYear.disabled = true;
+  function newDiv(text) {
+    let div = document.createElement('div');
+    let header = document.createElement('h4');
+    header.appendChild(document.createTextNode(text));
+    div.appendChild(header);
+    return div;
+  }
 
-  copied.appendChild(pastYear);
 
-  let mark = button.querySelector('.sbico');
-  mark.classList.remove('sbico');
-  mark.style.fontSize = 'medium';
-  mark.style.color = 'white';
-  mark.appendChild(document.createTextNode('1Y'));
+  function extractParams() {
+    return window.location.search.replace(/^\?/, '').split('&').map((q) => {
+      return q.split('=');
+    });
+  }
 
-  search.parentNode.insertBefore(copied, search.nextElementSibling);
+
+  function changeUrl(name, value) {
+    let loc = window.location;
+    let base = loc.href.replace(loc.search, '');
+    let params = extractParams().filter((kv) => {
+      let key = kv[0];
+      return (key !== name) && ['q', 'lr', 'tbs'].indexOf(key) >= 0;
+    }).map((kv) => {
+      return kv.join('=');
+    }).join('&') + '&' + name + '=' + value;
+    loc.href = base + '?' + params;
+  }
+
+
+  function newRadio(name, value, text, checked) {
+    let radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = name;
+    radio.value = value;
+    radio.checked = checked;
+    radio.addEventListener('change', () => {
+      changeUrl(name, value);
+    });
+
+    let label = document.createElement('label');
+    label.style.display = 'block';
+    label.appendChild(radio);
+    label.appendChild(document.createTextNode(text));
+    return label;
+  }
+
+
+  var material = [
+    {
+      header: 'Language',
+      name: 'lr',
+      values: [
+        ['lang_ja', 'Japnese'],
+        ['lang_en', 'English'],
+        ['', 'Any'],
+      ],
+    },
+    {
+      header: 'Time',
+      name: 'tbs',
+      values: [
+        ['qdr:h', '1 Hour'],
+        ['qdr:d', '1 Day'],
+        ['qdr:w', '1 Week'],
+        ['qdr:m', '1 Month'],
+        ['qdr:y', '1 Year'],
+        ['', 'Any'],
+      ],
+    },
+  ];
+
+
+  function main() {
+    let params = extractParams();
+    let container = newContainer();
+
+    material.forEach((category) => {
+      let div = newDiv(category.header);
+      category.values.forEach((vl) => {
+        let checked = params.filter((kv) => {
+          return kv[0] === category.name && kv[1] === vl[0];
+        }).length > 0;
+        div.appendChild(newRadio(category.name, vl[0], vl[1], checked));
+      });
+      container.appendChild(div);
+    });
+
+    let base = document.querySelector('#akp').parentElement;
+    base.appendChild(container);
+  }
+
+
+  main();
+
 }());
 
