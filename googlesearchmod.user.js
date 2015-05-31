@@ -4,7 +4,7 @@
 // @include https://www.google.com/search*
 // @include https://www.google.co.jp/search*
 // @noframes
-// @version 0.2.0
+// @version 0.2.1
 // ==/UserScript==
 
 (function() {
@@ -17,7 +17,7 @@
   }
 
 
-  function newDiv(text) {
+  function newCategory(text) {
     let div = document.createElement('div');
     let header = document.createElement('h4');
     header.appendChild(document.createTextNode(text));
@@ -94,14 +94,14 @@
     let container = newContainer();
 
     material.forEach((category) => {
-      let div = newDiv(category.header);
+      let cat = newCategory(category.header);
       category.values.forEach((vl) => {
         let checked = params.filter((kv) => {
           return kv[0] === category.name && kv[1] === vl[0];
         }).length > 0;
-        div.appendChild(newRadio(category.name, vl[0], vl[1], checked));
+        cat.appendChild(newRadio(category.name, vl[0], vl[1], checked));
       });
-      container.appendChild(div);
+      container.appendChild(cat);
     });
 
     let base = document.querySelector('#akp').parentElement;
