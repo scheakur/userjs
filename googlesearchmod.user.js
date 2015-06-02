@@ -4,7 +4,7 @@
 // @include https://www.google.com/search*
 // @include https://www.google.co.jp/search*
 // @noframes
-// @version 0.2.1
+// @version 0.2.2
 // ==/UserScript==
 
 (function() {
@@ -64,7 +64,7 @@
   }
 
 
-  var material = [
+  let categories = [
     {
       header: 'Language',
       name: 'lr',
@@ -93,7 +93,7 @@
     let params = extractParams();
     let container = newContainer();
 
-    material.forEach((category) => {
+    categories.forEach((category) => {
       let cat = newCategory(category.header);
       category.values.forEach((vl) => {
         let checked = params.filter((kv) => {
