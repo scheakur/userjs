@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name ldrmod
 // @namespace scheakur.com
+// @include http://reader.livedwango.com/reader/
 // @include http://reader.livedoor.com/reader/
 // @include http://reader.livedoor.com/public/*
 // @noframes
-// @version 0.2.0
+// @version 0.3.0
 // @grant GM_openInTab
 // ==/UserScript==
 
