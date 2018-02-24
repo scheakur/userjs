@@ -3,11 +3,11 @@
 // @namespace scheakur.com
 // @include http://irodr.netlify.com/
 // @noframes
-// @version 0.1.0
+// @version 0.2.0
 // @grant GM_openInTab
 // ==/UserScript==
 
-(function() {
+(function () {
   'use strict';
 
   function openInBackgroundTab() {
@@ -17,7 +17,11 @@
       return;
     }
 
-    GM_openInTab(content.url, { active: false });
+    GM_openInTab(content.url, {
+      active: false,
+      insert: true,
+      setParent: true
+    });
   }
 
   let tryCount = 0;
