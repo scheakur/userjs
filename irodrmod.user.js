@@ -7,8 +7,8 @@
 // @grant GM_openInTab
 // ==/UserScript==
 
-(function () {
-  'use strict';
+(function() {
+  "use strict";
 
   function openInBackgroundTab() {
     const content = userScript.getActiveContent();
@@ -35,15 +35,18 @@
   }
 
   function setup() {
-    if (typeof userScript === 'undefined') {
+    if (typeof userScript === "undefined") {
       retry(setup);
       return;
     }
 
-    const unsubscribe = userScript.event.subscribe("SubscriptionContent::componentDidMount", (content) => {
-      userScript.registerKey('v', openInBackgroundTab);
-      unsubscribe();
-    });
+    const unsubscribe = userScript.event.subscribe(
+      "SubscriptionContent::componentDidMount",
+      content => {
+        userScript.registerKey("v", openInBackgroundTab);
+        unsubscribe();
+      }
+    );
   }
 
   setup();
