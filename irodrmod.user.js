@@ -1,12 +1,14 @@
 // ==UserScript==
 // @name irodrmod
+// @description mod for irodr
 // @namespace scheakur.com
-// @include http://irodr.netlify.com/
+// @match https://irodr.netlify.app/
 // @noframes
 // @version 0.2.0
 // @grant GM_openInTab
 // ==/UserScript==
 
+/* global userScript */
 (function() {
   "use strict";
 
